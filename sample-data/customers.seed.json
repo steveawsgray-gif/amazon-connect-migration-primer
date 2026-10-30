@@ -1,0 +1,29 @@
+[
+  {
+    "phone_number": "+16135550101",
+    "customer_name": "Avery Collins",
+    "account_tier": "Priority",
+    "routing_queue": "Priority",
+    "open_case": "true",
+    "case_id": "CASE-1042",
+    "case_summary": "Escalated service outage follow-up — expects the priority team"
+  },
+  {
+    "phone_number": "+14165550102",
+    "customer_name": "Jordan Lee",
+    "account_tier": "Standard",
+    "routing_queue": "Billing",
+    "open_case": "true",
+    "case_id": "CASE-2077",
+    "case_summary": "Open billing dispute — routes straight to Billing"
+  },
+  {
+    "phone_number": "+15145550103",
+    "customer_name": "Sam Tremblay",
+    "account_tier": "Standard",
+    "routing_queue": "General",
+    "open_case": "false",
+    "case_id": "",
+    "case_summary": "Known customer, nothing open — general support"
+  }
+]

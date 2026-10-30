@@ -1,0 +1,18 @@
+{
+  "Details": {
+    "ContactData": {
+      "Attributes": {},
+      "Channel": "VOICE",
+      "ContactId": "00000000-0000-0000-0000-000000000000",
+      "CustomerEndpoint": { "Address": "+16135550101", "Type": "TELEPHONE_NUMBER" },
+      "InitialContactId": "00000000-0000-0000-0000-000000000000",
+      "InitiationMethod": "INBOUND",
+      "InstanceARN": "arn:aws:connect:us-east-1:123456789012:instance/00000000-0000-0000-0000-000000000000",
+      "PreviousContactId": "00000000-0000-0000-0000-000000000000",
+      "Queue": null,
+      "SystemEndpoint": { "Address": "+16135550199", "Type": "TELEPHONE_NUMBER" }
+    },
+    "Parameters": {}
+  },
+  "Name": "ContactFlowEvent"
+}

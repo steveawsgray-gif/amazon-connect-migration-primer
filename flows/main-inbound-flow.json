@@ -1,0 +1,409 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "SetLogging",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "SetLogging": {
+        "position": {
+          "x": 60,
+          "y": 120
+        }
+      },
+      "SetRecording": {
+        "position": {
+          "x": 260,
+          "y": 120
+        }
+      },
+      "Welcome": {
+        "position": {
+          "x": 460,
+          "y": 120
+        }
+      },
+      "LookupCaller": {
+        "position": {
+          "x": 660,
+          "y": 120
+        }
+      },
+      "RouteByQueue": {
+        "position": {
+          "x": 880,
+          "y": 120
+        }
+      },
+      "SetPriorityQueue": {
+        "position": {
+          "x": 1080,
+          "y": 40
+        }
+      },
+      "SetBillingQueue": {
+        "position": {
+          "x": 1080,
+          "y": 160
+        }
+      },
+      "SetGeneralQueue": {
+        "position": {
+          "x": 1080,
+          "y": 280
+        }
+      },
+      "AnnouncePriority": {
+        "position": {
+          "x": 1280,
+          "y": 40
+        }
+      },
+      "AnnounceBilling": {
+        "position": {
+          "x": 1280,
+          "y": 160
+        }
+      },
+      "AnnounceGeneral": {
+        "position": {
+          "x": 1280,
+          "y": 280
+        }
+      },
+      "TransferPriority": {
+        "position": {
+          "x": 1480,
+          "y": 40
+        }
+      },
+      "TransferBilling": {
+        "position": {
+          "x": 1480,
+          "y": 160
+        }
+      },
+      "TransferGeneral": {
+        "position": {
+          "x": 1480,
+          "y": 280
+        }
+      },
+      "ErrorPrompt": {
+        "position": {
+          "x": 880,
+          "y": 420
+        }
+      },
+      "ErrorDisconnect": {
+        "position": {
+          "x": 1480,
+          "y": 420
+        }
+      },
+      "Bye": {
+        "position": {
+          "x": 1680,
+          "y": 420
+        }
+      }
+    },
+    "annotations": [
+      {
+        "text": "Placeholders ${lambda_function_arn}, ${general_queue_arn}, ${priority_queue_arn}, ${billing_queue_arn} are rendered by Terraform templatefile() at deploy time. Do not paste this file into Connect raw.",
+        "location": {
+          "x": 40,
+          "y": 520
+        }
+      }
+    ]
+  },
+  "Actions": [
+    {
+      "Identifier": "SetLogging",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Transitions": {
+        "NextAction": "SetRecording"
+      }
+    },
+    {
+      "Identifier": "SetRecording",
+      "Type": "UpdateContactRecordingBehavior",
+      "Parameters": {
+        "RecordingBehavior": {
+          "RecordedParticipants": [
+            "Agent",
+            "Customer"
+          ],
+          "IVRRecordingBehavior": "Disabled"
+        }
+      },
+      "Transitions": {
+        "NextAction": "Welcome"
+      }
+    },
+    {
+      "Identifier": "Welcome",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling NorthStar Support. Please hold for a moment while we pull up your account."
+      },
+      "Transitions": {
+        "NextAction": "LookupCaller",
+        "Errors": [
+          {
+            "NextAction": "LookupCaller",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "LookupCaller",
+      "Type": "InvokeLambdaFunction",
+      "Parameters": {
+        "LambdaFunctionARN": "${lambda_function_arn}",
+        "InvocationTimeLimitSeconds": "8",
+        "InvocationType": "SYNCHRONOUS",
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Transitions": {
+        "NextAction": "RouteByQueue",
+        "Errors": [
+          {
+            "NextAction": "SetGeneralQueue",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "RouteByQueue",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.External.routingQueue"
+      },
+      "Transitions": {
+        "NextAction": "SetGeneralQueue",
+        "Conditions": [
+          {
+            "NextAction": "SetPriorityQueue",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "Priority"
+              ]
+            }
+          },
+          {
+            "NextAction": "SetBillingQueue",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "Billing"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "SetGeneralQueue",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "SetPriorityQueue",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "${priority_queue_arn}"
+      },
+      "Transitions": {
+        "NextAction": "AnnouncePriority",
+        "Errors": [
+          {
+            "NextAction": "ErrorPrompt",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "SetBillingQueue",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "${billing_queue_arn}"
+      },
+      "Transitions": {
+        "NextAction": "AnnounceBilling",
+        "Errors": [
+          {
+            "NextAction": "ErrorPrompt",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "SetGeneralQueue",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "${general_queue_arn}"
+      },
+      "Transitions": {
+        "NextAction": "AnnounceGeneral",
+        "Errors": [
+          {
+            "NextAction": "ErrorPrompt",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "AnnouncePriority",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you, $.External.customerName. We can see your open case, so we are connecting you directly with your priority support team."
+      },
+      "Transitions": {
+        "NextAction": "TransferPriority",
+        "Errors": [
+          {
+            "NextAction": "TransferPriority",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "AnnounceBilling",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We found your billing case, $.External.customerName. Connecting you to our billing team now."
+      },
+      "Transitions": {
+        "NextAction": "TransferBilling",
+        "Errors": [
+          {
+            "NextAction": "TransferBilling",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "AnnounceGeneral",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to our support team now. Please hold."
+      },
+      "Transitions": {
+        "NextAction": "TransferGeneral",
+        "Errors": [
+          {
+            "NextAction": "TransferGeneral",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "TransferPriority",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "ErrorDisconnect",
+        "Errors": [
+          {
+            "NextAction": "ErrorDisconnect",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "ErrorDisconnect",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "TransferBilling",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "ErrorDisconnect",
+        "Errors": [
+          {
+            "NextAction": "ErrorDisconnect",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "ErrorDisconnect",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "TransferGeneral",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "ErrorDisconnect",
+        "Errors": [
+          {
+            "NextAction": "ErrorDisconnect",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "ErrorDisconnect",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "ErrorPrompt",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We are sorry, something went wrong on our side. Connecting you to our support team now."
+      },
+      "Transitions": {
+        "NextAction": "SetGeneralQueue",
+        "Errors": [
+          {
+            "NextAction": "SetGeneralQueue",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "ErrorDisconnect",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We are sorry, we cannot complete that transfer right now. Please try calling us again."
+      },
+      "Transitions": {
+        "NextAction": "Bye",
+        "Errors": [
+          {
+            "NextAction": "Bye",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "Bye",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

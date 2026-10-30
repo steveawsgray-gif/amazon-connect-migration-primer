@@ -1,0 +1,8 @@
+# Copy to terraform.tfvars and adjust before plan.
+aws_region         = "us-east-1"
+project_name       = "connect-centre"
+environment        = "dev"
+instance_alias     = "sgray-connect-demo" # must be globally unique
+hours_time_zone    = "America/Toronto"
+claim_phone_number = false # set true only when ready to hold a DID
+phone_country_code = "CA"
