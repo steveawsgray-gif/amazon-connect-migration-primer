@@ -1,6 +1,7 @@
 # Project 2 — Amazon Connect Contact Centre
 
-<img width="498" height="300" alt="image" src="https://github.com/user-attachments/assets/19cdf10f-2bd0-4970-aa3e-157dd1411803" />
+<img width="498" height="300" alt="image" src="https://github.com/user-attachments/assets/87b46a13-afb7-4493-8daf-29ebd2d41206" />
+
 
 
 **A target-state slice of a legacy contact-centre migration (Avaya/Cisco →
