@@ -1,6 +1,6 @@
 # Project 2 — Amazon Connect Contact Centre
 
-<img width="2835" height="1710" alt="Project 2 architecture - Amazon Connect contact centre, navy hero diagram" src="docs/project-2-hero-navy.png" />
+<img width="498" height="300" alt="image" src="https://github.com/user-attachments/assets/19cdf10f-2bd0-4970-aa3e-157dd1411803" />
 
 
 **A target-state slice of a legacy contact-centre migration (Avaya/Cisco →
