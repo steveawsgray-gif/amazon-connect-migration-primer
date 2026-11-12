@@ -5,9 +5,11 @@
 **A target-state slice of a legacy contact-centre migration (Avaya/Cisco →
 Amazon Connect), built as a portfolio example.**
 
-**Status: DEPLOYED, COMMISSIONED AND CAPPED** — live instance, published
-number +1 531-247-6511, data-driven queue routing validated live. This
-working floor is the base that Project 3 staffs with governed AI agents.
+**Status: DEPLOYED, COMMISSIONED AND FROZEN (November 12, 2026)** — live
+instance, published number +1 531-247-6511, data-driven queue routing
+validated live. This working floor is the base that Project 3 staffs with
+governed AI agents. Console evidence:
+[docs/screenshots](docs/screenshots/captions.md).
 
 ## Design brief
 
