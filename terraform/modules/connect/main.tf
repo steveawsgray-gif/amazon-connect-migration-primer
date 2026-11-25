@@ -1,4 +1,4 @@
-# Amazon Connect — the contact centre itself.
+# Amazon Connect — the contact center itself.
 #
 # Architecture notes for review:
 # - Identity is CONNECT_MANAGED for the demo. Production answer: SAML federation.
