@@ -1,7 +1,7 @@
-# Project 2 — Amazon Connect Contact Centre — root module
+# Project 2 — Amazon Connect Contact Center — root module
 #
 # REVIEW GUIDE (architecture level — that's your layer):
-#   modules/connect            The contact centre itself: instance, hours,
+#   modules/connect            The contact center itself: instance, hours,
 #                              queues, routing profile, main flow, storage wiring
 #   modules/customer_data      DynamoDB customer directory + Lambda data dip
 #   modules/storage_analytics  KMS, S3 (recordings + CTR lake), Firehose, Athena
@@ -34,7 +34,7 @@ data "aws_caller_identity" "current" {}
 locals {
   common_tags = merge(
     {
-      Project     = "amazon-connect-contact-centre"
+      Project     = "amazon-connect-contact-center"
       Environment = var.environment
       ManagedBy   = "terraform"
     },
