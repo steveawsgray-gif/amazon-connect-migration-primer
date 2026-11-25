@@ -10,7 +10,7 @@ November 12, 2026 on its published number, +1 531-247-6511.
 | 2 | `02-main-inbound-canvas.png` | Main Inbound – Customer Lookup Routing flow, published: logging and recording behaviour, welcome prompt, Lambda customer lookup, attribute branching, working-queue selection, transfer to queue |
 | 3 | `03-queues.png` | Queues — Priority Support, Billing, General Support (all enabled), plus the default BasicQueue |
 | 4 | `04-phone-numbers.png` | Phone numbers — the published DID +1 531-247-6511 assigned to Main Inbound |
-| 6 | `06-realtime-metrics.png` | Real-time metrics, queues grouping (contact centre at rest; Nov 12, 5:36 PM ET) |
+| 6 | `06-realtime-metrics.png` | Real-time metrics, queues grouping (contact center at rest; Nov 12, 5:36 PM ET) |
 | 7 | `07-account-overview.png` | Instance account overview — access URL, instance ARN, Terraform-managed tags |
 
 Notes:
