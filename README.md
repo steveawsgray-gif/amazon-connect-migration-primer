@@ -1,8 +1,8 @@
-# Project 2 — Amazon Connect Contact Centre
+# Project 2 — Amazon Connect Contact Center
 
 <img width="498" height="300" alt="image" src="https://github.com/user-attachments/assets/87b46a13-afb7-4493-8daf-29ebd2d41206" />
 
-**A target-state slice of a legacy contact-centre migration (Avaya/Cisco →
+**A target-state slice of a legacy contact-center migration (Avaya/Cisco →
 Amazon Connect), built as a portfolio example.**
 
 **Status: DEPLOYED, COMMISSIONED AND FROZEN (November 12, 2026)** — live
