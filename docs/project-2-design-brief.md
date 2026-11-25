@@ -1,6 +1,6 @@
-# Project 2 — Design Brief: Amazon Connect Contact Centre
+# Project 2 — Design Brief: Amazon Connect Contact Center
 
-**A target-state slice of a legacy contact-centre migration (Avaya/Cisco →
+**A target-state slice of a legacy contact-center migration (Avaya/Cisco →
 Amazon Connect), built as a portfolio example.**
 
 A caller dials in. Before an agent ever says hello, the contact flow
@@ -13,7 +13,7 @@ would otherwise buy as a black box.
 
 ## Why this project exists
 
-Forty years of contact-centre work (TASKE: 2,500+ agent centres on Avaya
+Forty years of contact-center work (TASKE: 2,500+ agent centres on Avaya
 and Cisco) says the first deliverable of any real migration is never "the
 whole platform." It is one working vertical slice: one inbound flow, one
 data dip, a handful of queues done properly, and reporting you can see
