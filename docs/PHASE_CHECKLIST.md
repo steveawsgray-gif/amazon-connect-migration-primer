@@ -1,4 +1,4 @@
-# Phase Checklist — Project 2: Amazon Connect Contact Centre
+# Phase Checklist — Project 2: Amazon Connect Contact Center
 
 ## Phase 0 — Design (done 2026-10-21)
 - [x] Scenario fixed: legacy → Connect migration, slice one (inbound voice)
