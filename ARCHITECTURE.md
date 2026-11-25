@@ -1,10 +1,10 @@
-# Architecture — Amazon Connect Contact Centre (Project 2)
+# Architecture — Amazon Connect Contact Center (Project 2)
 
 ## 1. Scenario
 
 "NorthStar Support" is a fictional mid-size services company running an aging
 on-prem PBX estate (Avaya/Cisco) with third-party reporting bolted on. Leadership
-wants a cloud contact centre without a big-bang cutover. This project is **slice one**
+wants a cloud contact center without a big-bang cutover. This project is **slice one**
 of that migration: inbound voice, done properly, small enough to demo in an afternoon
 and honest enough to survive an architect's questions.
 
@@ -55,7 +55,7 @@ to get help. That is the difference between an IVR tree and an architecture.
 - **S3 for recordings, KMS-encrypted, versioned, public access blocked, lifecycle
   to Glacier at 90 days, expiry at 365.** Recordings are evidence. Treat them like it.
 - **CTR pipeline: Firehose → S3 → Glue/Athena.** Contact Trace Records are the
-  contact centre's memory. Streaming them to a queryable lake replaces the legacy
+  contact center's memory. Streaming them to a queryable lake replaces the legacy
   pattern — a vendor reporting black box — with SQL the business owns. This is the
   TASKE reporting story, rebuilt on open rails. QuickSight dashboards are Phase 2.
 - **CloudWatch alarm on Lambda errors → SNS topic.** If the data dip breaks, the
